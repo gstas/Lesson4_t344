@@ -30,23 +30,29 @@ namespace Lesson4_t344
                     if (needWeight > 11200)
                         throw new Exception($"Необходимый вес превышает сумму весов всех гирь!");
 
+                    /*  
+                        Если представить что каждая гиря это 1 бит, 
+                        то максимальное 11 1111 1111 = 1024 
+                    */
                     for (int a = 0; a < 1023; a++)
                     {
                         int b = a;
                         int summ = 0;
                         string result = "";
 
+                        // Сдвигаем пошагово все биты в числе вправо
                         for (int i = 0; i < 10; i++)
                         {
                             int last = b & 1;
-                            if (last == 1)
+                            if (last == 1) // Если крайний бит = 1, то учитываем вес этой гири.
                             {
                                 summ += weights[i];
                                 result += weights[i] + ";";
                             }
 
-                            b = b >> 1;
+                            b >>= 1;
                         }
+
                         if (summ == needWeight)
                             Console.WriteLine(result);
                     }
